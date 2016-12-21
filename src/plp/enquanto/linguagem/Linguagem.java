@@ -67,7 +67,7 @@ public interface Linguagem {
 			else if (condicaoSenaoSe.getValor())
 				comandoSenaoSe.execute();
 			else
-				senao.execute();
+				comandoSenao.execute();
 		}
 	}
 
@@ -114,7 +114,7 @@ public interface Linguagem {
 		private Expressao ate;
 		private Comando faca;
 
-		public Enquanto(String id, Expressao de, Expressao ate, Comando faca) {
+		public Para(String id, Expressao de, Expressao ate, Comando faca) {
 			this.id = id;
 			this.de = de;
 			this.ate = ate;
@@ -124,7 +124,7 @@ public interface Linguagem {
 		@Override
 		public void execute() {
 			ambiente.put(id, de.getValor());
-			int i = ambiente.get(id)
+			int i = ambiente.get(id);
 
 			while (i <= ate.getValor()) {
 				faca.execute();
@@ -267,7 +267,7 @@ public interface Linguagem {
 
 		@Override
 		public int getValor() {
-			return Math.pow(esq.getValor(), dir.getValor());
+			return (int) Math.pow(esq.getValor(), dir.getValor());
 		}
 	}
 
@@ -319,7 +319,7 @@ public interface Linguagem {
 	}
 
 	public class ExpMaiorIgual extends ExpRel {
-		public ExpMenorIgual(Expressao esq, Expressao dir) {
+		public ExpMaiorIgual(Expressao esq, Expressao dir) {
 			super(esq, dir);
 		}
 
@@ -330,7 +330,7 @@ public interface Linguagem {
 	}
 
 	public class ExpDiferente extends ExpRel {
-		public ExpMenorIgual(Expressao esq, Expressao dir) {
+		public ExpDiferente(Expressao esq, Expressao dir) {
 			super(esq, dir);
 		}
 
@@ -371,7 +371,7 @@ public interface Linguagem {
 		private Bool esq;
 		private Bool dir;
 
-		public ELogico(Bool esq, Bool dir) {
+		public OuLogico(Bool esq, Bool dir) {
 			this.esq = esq;
 			this.dir = dir;
 		}
@@ -385,7 +385,7 @@ public interface Linguagem {
 		private Bool esq;
 		private Bool dir;
 
-		public ELogico(Bool esq, Bool dir) {
+		public XorLogico(Bool esq, Bool dir) {
 			this.esq = esq;
 			this.dir = dir;
 		}

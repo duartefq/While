@@ -1,12 +1,11 @@
 package plp.enquanto.parser;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
-
 import plp.enquanto.linguagem.Linguagem.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MeuListener extends EnquantoBaseListener {
 	private final Leia leia = new Leia();
@@ -42,14 +41,14 @@ public class MeuListener extends EnquantoBaseListener {
 		final Bool condicaoSe = (Bool) getValue(ctx.bool(0));
 		final Comando comandoEntao = (Comando) getValue(ctx.comando(0));
 
-		if (ctx.bool.size() > 1) { // we have two conditions, ie, se and senaose
-			final Bool condicaoSenaoSe = (Bool) getValue(ctx.bool(1));
-			final Comando comandoSenaoSe = (Comando) getValue(ctx.comando(1));
-			final Comando comandoSenao = (Comando) getValue(ctx.comando(2));
-		} else {
-			final Bool condicaoSenaoSe = false;
-			final Comando comandoSenaoSe = null;
-			final Comando comandoSenao = (Comando) getValue(ctx.comando(1));
+		Bool condicaoSenaoSe = null;
+		Comando comandoSenaoSe = null;
+		Comando comandoSenao = (Comando) getValue(ctx.comando(1));
+
+		if (ctx.bool().size() > 1) { // we have two conditions, ie, se and senaose
+			condicaoSenaoSe = (Bool) getValue(ctx.bool(1));
+			comandoSenaoSe = (Comando) getValue(ctx.comando(1));
+			comandoSenao = (Comando) getValue(ctx.comando(2));
 		}
 		
 		setValue(ctx, new Se(condicaoSe, comandoEntao, comandoSenao,
@@ -144,7 +143,7 @@ public class MeuListener extends EnquantoBaseListener {
 	}
 
 	@Override
-	public void exitPara(final EnquantoParser.EnquantoContext ctx) {
+	public void exitPara(final EnquantoParser.ParaContext ctx) {
 		final String id = ctx.ID().getText();
 		final Expressao de = (Expressao) getValue(ctx.expressao(0));
 		final Expressao ate = (Expressao) getValue(ctx.expressao(1));

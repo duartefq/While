@@ -35,11 +35,13 @@ public class Principal {
 		Programa p2 = new Programa(asList(
 				new Atribuicao("x", new Inteiro(10)),                       // x := 10
 				new Atribuicao("y", leia),                                  // y := leia
-				new Atribuicao("c", new ExpSoma(new Id("x"), new Id("y"))), // c := x + y
-				new Se(new ExpMenorIgual(new Inteiro(30), new Id("c")),     // se 30 <= c entao
-						new Escreva(new Id("c")),                           // escreva c
-						new Exiba("menor"))                                 // senao exiba "menor"
-				));
+				new Atribuicao("c", new ExpSoma(new Id("x"), new Id("y"))) // c := x + y
+//				new Se(new ExpMenorIgual(new Inteiro(30), new Id("c")),     // se 30 <= c entao
+//						new Escreva(new Id("c")),                           // escreva c
+//						new Exiba("menor"),									// senao exiba "menor"
+//						new ExpMaiorIgual(new Id("c"), new Inteiro(20)),
+//                      new Exiba("menor"))
+        ));
 		p1.execute();
 		p2.execute();
 	}
