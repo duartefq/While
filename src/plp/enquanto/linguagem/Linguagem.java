@@ -45,20 +45,27 @@ public interface Linguagem {
 	}
 
 	class Se implements Comando {
-		private Bool condicao;
-		private Comando entao;
-		private Comando senao;
+		private Bool condicaoSe;
+		private Bool condicaoSenaoSe;
+		private Comando comandoEntao;
+		private Comando comandoSenao;
+		private Comando comandoSenaoSe;
 
-		public Se(Bool condicao, Comando entao, Comando senao) {
-			this.condicao = condicao;
-			this.entao = entao;
-			this.senao = senao;
+		public Se(Bool condicaoSe, Comando comandoEntao, Comando comandoSenao,
+			Bool condicaoSenaoSe, Comando comandoSenaoSe) {
+			this.condicaoSe = condicaoSe;
+			this.comandoEntao = comandoEntao;
+			this.comandoSenao = comandoSenao;
+			this.condicaoSenaoSe = condicaoSenaoSe;
+			this.comandoSenaoSe = comandoSenaoSe;
 		}
 
 		@Override
 		public void execute() {
-			if (condicao.getValor())
-				entao.execute();
+			if (condicaoSe.getValor())
+				comandoEntao.execute();
+			else if (condicaoSenaoSe.getValor())
+				comandoSenaoSe.execute();
 			else
 				senao.execute();
 		}
@@ -96,6 +103,30 @@ public interface Linguagem {
 		@Override
 		public void execute() {
 			while (condicao.getValor()) {
+				faca.execute();
+			}
+		}
+	}
+
+	class Para implements Comando {
+		private String id;
+		private Expressao de;
+		private Expressao ate;
+		private Comando faca;
+
+		public Enquanto(String id, Expressao de, Expressao ate, Comando faca) {
+			this.id = id;
+			this.de = de;
+			this.ate = ate;
+			this.faca = faca;
+		}
+
+		@Override
+		public void execute() {
+			ambiente.put(id, de.getValor());
+			int i = ambiente.get(id)
+
+			while (i <= ate.getValor()) {
 				faca.execute();
 			}
 		}

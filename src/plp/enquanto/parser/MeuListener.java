@@ -39,10 +39,21 @@ public class MeuListener extends EnquantoBaseListener {
 
 	@Override
 	public void exitSe(final EnquantoParser.SeContext ctx) {
-		final Bool condicao = (Bool) getValue(ctx.bool());
-		final Comando entao = (Comando) getValue(ctx.comando(0));
-		final Comando senao = (Comando) getValue(ctx.comando(1));
-		setValue(ctx, new Se(condicao, entao, senao));
+		final Bool condicaoSe = (Bool) getValue(ctx.bool(0));
+		final Comando comandoEntao = (Comando) getValue(ctx.comando(0));
+
+		if (ctx.bool.size() > 1) { // we have two conditions, ie, se and senaose
+			final Bool condicaoSenaoSe = (Bool) getValue(ctx.bool(1));
+			final Comando comandoSenaoSe = (Comando) getValue(ctx.comando(1));
+			final Comando comandoSenao = (Comando) getValue(ctx.comando(2));
+		} else {
+			final Bool condicaoSenaoSe = false;
+			final Comando comandoSenaoSe = null;
+			final Comando comandoSenao = (Comando) getValue(ctx.comando(1));
+		}
+		
+		setValue(ctx, new Se(condicaoSe, comandoEntao, comandoSenao,
+			condicaoSenaoSe, comandoSenaoSe));
 	}
 
 	@Override
@@ -130,6 +141,15 @@ public class MeuListener extends EnquantoBaseListener {
 		final Bool condicao = (Bool) getValue(ctx.bool());
 		final Comando comando = (Comando) getValue(ctx.comando());
 		setValue(ctx, new Enquanto(condicao, comando));
+	}
+
+	@Override
+	public void exitPara(final EnquantoParser.EnquantoContext ctx) {
+		final String id = ctx.ID().getText();
+		final Expressao de = (Expressao) getValue(ctx.expressao(0));
+		final Expressao ate = (Expressao) getValue(ctx.expressao(1));
+		final Comando comando = (Comando) getValue(ctx.comando());
+		setValue(ctx, new Para(id, de, ate, comando));
 	}
 
 	@Override
