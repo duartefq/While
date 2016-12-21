@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.lang.Math;
 
 public interface Linguagem {
 	final Map<String, Integer> ambiente = new HashMap<>();
@@ -217,6 +218,28 @@ public interface Linguagem {
 		}
 	}
 
+	class ExpDiv extends ExpBin {
+		public ExpDiv(Expressao esq, Expressao dir) {
+			super(esq, dir);
+		}
+
+		@Override
+		public int getValor() {
+			return esq.getValor() / dir.getValor();
+		}
+	}
+
+	class ExpExpo extends ExpBin {
+		public ExpExpo(Expressao esq, Expressao dir) {
+			super(esq, dir);
+		}
+
+		@Override
+		public int getValor() {
+			return Math.pow(esq.getValor(), dir.getValor());
+		}
+	}
+
 	class Booleano implements Bool {
 		private boolean valor;
 
@@ -264,6 +287,28 @@ public interface Linguagem {
 		}
 	}
 
+	public class ExpMaiorIgual extends ExpRel {
+		public ExpMenorIgual(Expressao esq, Expressao dir) {
+			super(esq, dir);
+		}
+
+		@Override
+		public boolean getValor() {
+			return esq.getValor() >= dir.getValor();
+		}
+	}
+
+	public class ExpDiferente extends ExpRel {
+		public ExpMenorIgual(Expressao esq, Expressao dir) {
+			super(esq, dir);
+		}
+
+		@Override
+		public boolean getValor() {
+			return esq.getValor() != dir.getValor();
+		}
+	}
+
 	public class NaoLogico implements Bool {
 		private Bool b;
 
@@ -291,4 +336,33 @@ public interface Linguagem {
 			return esq.getValor() && dir.getValor();
 		}
 	}
+	public class OuLogico implements Bool {
+		private Bool esq;
+		private Bool dir;
+
+		public ELogico(Bool esq, Bool dir) {
+			this.esq = esq;
+			this.dir = dir;
+		}
+
+		@Override
+		public boolean getValor() {
+			return esq.getValor() || dir.getValor();
+		}
+	}
+	public class XorLogico implements Bool {
+		private Bool esq;
+		private Bool dir;
+
+		public ELogico(Bool esq, Bool dir) {
+			this.esq = esq;
+			this.dir = dir;
+		}
+
+		@Override
+		public boolean getValor() {
+			return esq.getValor() ^ dir.getValor();
+		}
+	}
+
 }

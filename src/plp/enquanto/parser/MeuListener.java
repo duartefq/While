@@ -113,6 +113,12 @@ public class MeuListener extends EnquantoBaseListener {
 		case "-":
 			exp = new ExpSub(esq, dir);
 			break;
+		case "/":
+			exp = new ExpDiv(esq, dir);
+			break;
+		case "^":
+			exp = new ExpExpo(esq, dir);
+			break;
 		default:
 			exp = new ExpSoma(esq, dir);
 		}
@@ -131,6 +137,20 @@ public class MeuListener extends EnquantoBaseListener {
 		final Bool esq = (Bool) getValue(ctx.bool(0));
 		final Bool dir = (Bool) getValue(ctx.bool(1));
 		setValue(ctx, new ELogico(esq, dir));
+	}
+
+	@Override
+	public void exitOuLogico(final EnquantoParser.OuLogicoContext ctx) {
+		final Bool esq = (Bool) getValue(ctx.bool(0));
+		final Bool dir = (Bool) getValue(ctx.bool(1));
+		setValue(ctx, new OuLogico(esq, dir));
+	}
+
+	@Override
+	public void exitXorLogico(final EnquantoParser.XorLogicoContext ctx) {
+		final Bool esq = (Bool) getValue(ctx.bool(0));
+		final Bool dir = (Bool) getValue(ctx.bool(1));
+		setValue(ctx, new XorLogico(esq, dir));
 	}
 
 	@Override
@@ -168,6 +188,12 @@ public class MeuListener extends EnquantoBaseListener {
 			break;
 		case "<=":
 			exp = new ExpMenorIgual(esq, dir);
+			break;
+		case ">=":
+			exp = new ExpMaiorIgual(esq, dir);
+			break;
+		case "<>":
+			exp = new ExpDiferente(esq, dir);
 			break;
 		default:
 			exp = new ExpIgual(esq, dir);
