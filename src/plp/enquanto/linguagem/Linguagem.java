@@ -136,12 +136,9 @@ public interface Linguagem {
 		@Override
 		public void execute() {
 			ambiente.put(id, de.getValor());
-			int i = ambiente.get(id);
-
-			while (i < ate.getValor()) {
+			while (ambiente.get(id) < ate.getValor()) {
                 faca.execute();
-				i++;
-				ambiente.put(id, i);
+				ambiente.put(id, ambiente.get(id) + 1);
 			}
 		}
 	}
