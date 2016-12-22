@@ -41,15 +41,20 @@ public class MeuListener extends EnquantoBaseListener {
 		final Bool condicaoSe = (Bool) getValue(ctx.bool(0));
 		final Comando comandoEntao = (Comando) getValue(ctx.comando(0));
 
-		Bool condicaoSenaoSe = null;
-		Comando comandoSenaoSe = null;
-		Comando comandoSenao = (Comando) getValue(ctx.comando(1));
+		List<Bool> condicaoSenaoSe = new ArrayList<>();
+		List<Comando> comandoSenaoSe = new ArrayList<>();
+		Comando comandoSenao = null;
 
 		if (ctx.bool().size() > 1) { // we have two conditions, ie, se and senaose
-			condicaoSenaoSe = (Bool) getValue(ctx.bool(1));
-			comandoSenaoSe = (Comando) getValue(ctx.comando(1));
-			comandoSenao = (Comando) getValue(ctx.comando(2));
+            for (int i = 1; i < ctx.bool().size(); i++) {
+                condicaoSenaoSe.add((Bool) getValue(ctx.bool(i)));
+                comandoSenaoSe.add((Comando) getValue(ctx.comando(i)));
+            }
 		}
+
+        if (ctx.comando().size() > ctx.bool().size()) { // we have a senao clause
+            comandoSenao = (Comando) getValue(ctx.comando(ctx.comando().size() - 1));
+        }
 		
 		setValue(ctx, new Se(condicaoSe, comandoEntao, comandoSenao,
 			condicaoSenaoSe, comandoSenaoSe));

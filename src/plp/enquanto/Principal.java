@@ -24,8 +24,14 @@ public class Principal {
 	}
 
 	public static void main(String... args) throws IOException {
-		String programa = "x:=10; y:=leia ; c:= x + y; "
-				+ "se 30<=c entao escreva c senao exiba \"menor\"";
+//		String programa = "para x de 1 ate 6 faca se x <= 2 entao escreva x senaose (x >= 3 e x <=4) entao exiba \"3 ou 4\" senao exiba \"maior que 4\"";
+		String programa = "n := leia;\n" +
+                "" +
+                "se n=0 entao exiba \"zero\"\n" +
+                "senaose n = 1 entao exiba \"um\"\n" +
+                "senaose n = 2 entao exiba \"dois\"\n" +
+                "senaose n = 3 entao exiba \"tres\"\n" +
+                "senao exiba \"quatro\"\n";
 		final ParseTree tree = parse(programa);
 		final ParseTreeWalker walker = new ParseTreeWalker();
 		final MeuListener listener = new MeuListener();
@@ -36,13 +42,29 @@ public class Principal {
 				new Atribuicao("x", new Inteiro(10)),                       // x := 10
 				new Atribuicao("y", leia),                                  // y := leia
 				new Atribuicao("c", new ExpSoma(new Id("x"), new Id("y"))) // c := x + y
-//				new Se(new ExpMenorIgual(new Inteiro(30), new Id("c")),     // se 30 <= c entao
-//						new Escreva(new Id("c")),                           // escreva c
-//						new Exiba("menor"),									// senao exiba "menor"
-//						new ExpMaiorIgual(new Id("c"), new Inteiro(20)),
-//                      new Exiba("menor"))
+//				new Se(
+//                        new ExpMenorIgual(new Inteiro(30), new Id("c")),     // se 30 <= c entao
+//						new Exiba("1. MAIOR QUE 30"),                           // escreva c
+//						new Exiba("3. MENOR QUE 20"),									// senao exiba "menor"
+//						new ExpMenorIgual(new Inteiro(20), new Id("c")),
+//                        new Exiba("2. MAIOR QUE 20"))
         ));
 		p1.execute();
-		p2.execute();
+//		p2.execute();
 	}
 }
+
+/*
+x := 10;
+y := leia();
+
+c := x + y;
+
+se 30 <= c entao
+    exiba "1. MAIOR QUE 30"
+senaose 20 <= c
+    exiba "2. MAIOR QUE 20"
+senao
+    exiba "3. MENOR QUE 20"
+
+*/

@@ -46,13 +46,13 @@ public interface Linguagem {
 
 	class Se implements Comando {
 		private Bool condicaoSe;
-		private Bool condicaoSenaoSe;
 		private Comando comandoEntao;
-		private Comando comandoSenao;
-		private Comando comandoSenaoSe;
+        private Comando comandoSenao;
+        private List<Bool> condicaoSenaoSe;
+        private List<Comando> comandoSenaoSe;
 
 		public Se(Bool condicaoSe, Comando comandoEntao, Comando comandoSenao,
-			Bool condicaoSenaoSe, Comando comandoSenaoSe) {
+			List<Bool> condicaoSenaoSe, List<Comando> comandoSenaoSe) {
 			this.condicaoSe = condicaoSe;
 			this.comandoEntao = comandoEntao;
 			this.comandoSenao = comandoSenao;
@@ -62,12 +62,24 @@ public interface Linguagem {
 
 		@Override
 		public void execute() {
-			if (condicaoSe.getValor())
-				comandoEntao.execute();
-			else if (condicaoSenaoSe.getValor())
-				comandoSenaoSe.execute();
-			else
-				comandoSenao.execute();
+            boolean goSenao = true;
+
+			if (condicaoSe.getValor()) {
+                comandoEntao.execute();
+                goSenao = false;
+            } else if (!condicaoSenaoSe.isEmpty()) {
+                for (int i = 0; i < condicaoSenaoSe.size(); i++) {
+                    if (condicaoSenaoSe.get(i).getValor()) {
+                        comandoSenaoSe.get(i).execute();
+                        goSenao = false;
+                        break;
+                    }
+                }
+            }
+            if (goSenao && comandoSenao != null) {
+                comandoSenao.execute();
+            }
+
 		}
 	}
 
@@ -126,8 +138,10 @@ public interface Linguagem {
 			ambiente.put(id, de.getValor());
 			int i = ambiente.get(id);
 
-			while (i <= ate.getValor()) {
-				faca.execute();
+			while (i < ate.getValor()) {
+                faca.execute();
+				i++;
+				ambiente.put(id, i);
 			}
 		}
 	}
