@@ -1,4 +1,4 @@
-// Generated from /Users/duartemac/Code/vagrant_getting_started/While/src/plp/enquanto/parser/Enquanto.g4 by ANTLR 4.5.3
+// Generated from /Users/duartemac/Code/java/While/src/plp/enquanto/parser/Enquanto.g4 by ANTLR 4.6
 package plp.enquanto.parser;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
@@ -11,7 +11,7 @@ import org.antlr.v4.runtime.misc.*;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class EnquantoLexer extends Lexer {
-	static { RuntimeMetaData.checkVersion("4.5.3", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.6", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =

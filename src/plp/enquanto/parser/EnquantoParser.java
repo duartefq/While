@@ -1,4 +1,4 @@
-// Generated from /Users/duartemac/Code/vagrant_getting_started/While/src/plp/enquanto/parser/Enquanto.g4 by ANTLR 4.5.3
+// Generated from /Users/duartemac/Code/java/While/src/plp/enquanto/parser/Enquanto.g4 by ANTLR 4.6
 package plp.enquanto.parser;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class EnquantoParser extends Parser {
-	static { RuntimeMetaData.checkVersion("4.5.3", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.6", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -334,6 +334,7 @@ public class EnquantoParser extends Parser {
 		try {
 			int _alt;
 			setState(64);
+			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case ID:
 				_localctx = new AtribuicaoContext(_localctx);
@@ -580,6 +581,7 @@ public class EnquantoParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(74);
+			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case INT:
 				{
@@ -865,7 +867,10 @@ public class EnquantoParser extends Parser {
 				_la = _input.LA(1);
 				if ( !(_la==T__24 || _la==T__25) ) {
 				_errHandler.recoverInline(this);
-				} else {
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
 					consume();
 				}
 				}
